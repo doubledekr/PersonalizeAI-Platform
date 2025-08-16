@@ -13,6 +13,11 @@ import {
   Upload
 } from 'lucide-react';
 
+// API Configuration
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://personalizeai-api.azurewebsites.net/api'
+  : '/api';
+
 const SubscribersTab = ({ dashboardData, loading, onRefresh }) => {
   const [subscribers, setSubscribers] = useState([]);
   const [filteredSubscribers, setFilteredSubscribers] = useState([]);
@@ -34,7 +39,7 @@ const SubscribersTab = ({ dashboardData, loading, onRefresh }) => {
 
   const fetchSubscribers = async () => {
     try {
-      const response = await fetch('/api/subscribers');
+      const response = await fetch(`${API_BASE_URL}/subscribers`);
       if (response.ok) {
         const data = await response.json();
         setSubscribers(data.subscribers || []);

@@ -16,6 +16,11 @@ import {
   Search
 } from 'lucide-react';
 
+// API Configuration - will be updated by GitHub Actions for production
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://personalizeai-api.azurewebsites.net/api'
+  : '/api';
+
 // Import components
 import OverviewTab from './components/OverviewTab';
 import SubscribersTab from './components/SubscribersTab';
@@ -41,8 +46,8 @@ function App() {
     try {
       setLoading(true);
       
-      // Mock API call - replace with actual API endpoint
-      const response = await fetch('/api/dashboard');
+      // API call to backend
+      const response = await fetch(`${API_BASE_URL}/dashboard`);
       
       if (response.ok) {
         const data = await response.json();
